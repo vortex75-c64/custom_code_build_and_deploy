@@ -21,7 +21,7 @@ jobs:
         run: |
           git clone https://${{secrets.CLONE_TOKEN}}@github.com/vortex75-c64/cli_common_eai_nso
           mv cli_common_eai_nso/* .
-          rmdir cli_common_eai_nso
+          rm -rf cli_common_eai_nso
           git clone https://${{secrets.CLONE_TOKEN}}@github.com/vortex75-c64/cli_common_nso
           git clone https://${{secrets.CLONE_TOKEN}}@github.com/vortex75-c64/cli_common_nso_datanet
           curl -H "X-JFrog-Art-Api:${{secrets.ARTIFACT_TOKEN}}" -O "https://vortex75c64.jfrog.io/artifactory/binary-generic-local/library.zip"
