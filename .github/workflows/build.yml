@@ -72,7 +72,8 @@ jobs:
       url: 'iview-dev.example.com'
     steps:
       - name: deploy
-        run: echo "Deploy on DEV, file name is nso_eai_client_DEV_${GITHUB_RUN_NUMBER}.jar"
+        run: |
+          echo "Deploy on DEV, file name is nso_eai_client_DEV_${GITHUB_RUN_NUMBER}.jar"
  
    deployTEST:
     name: Deploy to TEST
@@ -83,4 +84,5 @@ jobs:
        url: 'iview-test.example.com'
     steps:
       - name: deploy
-        run: echo "Deploy on TEST, file name is nso_eai_client_TEST_${GITHUB_RUN_NUMBER}.jar"
+        run: |
+          echo "Deploy on TEST, file name is nso_eai_client_TEST_${GITHUB_RUN_NUMBER}.jar"
