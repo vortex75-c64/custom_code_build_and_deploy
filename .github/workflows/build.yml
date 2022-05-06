@@ -21,7 +21,7 @@ jobs:
         run: |
           git clone https://${{secrets.CLONE_TOKEN}}@github.com/vortex75-c64/cli_common_eai_nso
           mv cli_common_eai_nso/* .
-          rmdir cli_common_eai_nso
+          rm -rf cli_common_eai_nso
           git clone https://${{secrets.CLONE_TOKEN}}@github.com/vortex75-c64/cli_common_nso
           git clone https://${{secrets.CLONE_TOKEN}}@github.com/vortex75-c64/cli_common_nso_datanet
           curl -H "X-JFrog-Art-Api:${{secrets.ARTIFACT_TOKEN}}" -O "https://vortex75c64.jfrog.io/artifactory/binary-generic-local/library.zip"
@@ -60,3 +60,29 @@ jobs:
           cp library/nso_eai_client.jar deploy/nso_eai_client_${GITHUB_RUN_NUMBER}.jar
           ls -l deploy
           curl -H "X-JFrog-Art-Api:${{secrets.ARTIFACT_TOKEN}}" -T deploy/nso_eai_client_${GITHUB_RUN_NUMBER}.jar "https://vortex75c64.jfrog.io/artifactory/binary-generic-local/deploy/nso_eai_client_${GITHUB_RUN_NUMBER}.jar"
+
+
+  # Deploy environments
+  deployDEV:
+    name: Deploy to DEV
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment:
+      name: DEV
+      url: 'iview-dev.example.com'
+    steps:
+      - name: deploy
+        run: |
+          echo "Deploy on DEV, file name is nso_eai_client_DEV_${GITHUB_RUN_NUMBER}.jar"
+
+  deployTEST:
+    name: Deploy to TEST
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment:
+      name: TEST
+       url: 'iview-test.example.com'
+    steps:
+      - name: deploy
+        run: |
+          echo "Deploy on TEST, file name is nso_eai_client_TEST_${GITHUB_RUN_NUMBER}.jar"
