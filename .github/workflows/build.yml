@@ -81,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: TEST
-       url: 'iview-test.example.com'
+      url: 'iview-test.example.com'
     steps:
       - name: deploy
         run: |
