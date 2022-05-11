@@ -66,7 +66,7 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: marvinpinto/action-automatic-releases@v1.2.1
+      - uses: ianlapham/release-and-build@v1
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "customcode"
