@@ -69,7 +69,7 @@ jobs:
       - uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "test-tag"
+          automatic_release_tag: "customcode"
           prerelease: false
           title: "Custom Code build #${GITHUB_RUN_NUMBER}"
           files: "deploy/nso_eai_client_${GITHUB_RUN_NUMBER}.jar"
