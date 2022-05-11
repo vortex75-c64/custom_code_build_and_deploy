@@ -61,6 +61,18 @@ jobs:
           ls -l deploy
           curl -H "X-JFrog-Art-Api:${{secrets.ARTIFACT_TOKEN}}" -T deploy/nso_eai_client_${GITHUB_RUN_NUMBER}.jar "https://vortex75c64.jfrog.io/artifactory/binary-generic-local/deploy/nso_eai_client_${GITHUB_RUN_NUMBER}.jar"
 
+  release:
+    name: "Release"
+    runs on: ubuntu-latest
+    steps:
+      - uses: marvinpinto/action-automatic-releases@v1.2.1
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: ${GITHUB_RUN_NUMBER}
+          prerelease: false
+          title: "Custom Code build #${GITHUB_RUN_NUMBER}"
+          files: "deploy/nso_eai_client_${GITHUB_RUN_NUMBER}.jar"
+
 
   # Deploy environments
   deployDEV:
@@ -74,6 +86,7 @@ jobs:
       - name: deploy
         run: |
           echo "Deploy on DEV, file name is nso_eai_client_DEV_${GITHUB_RUN_NUMBER}.jar"
+          scp -P 8005 -pqr -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@87.20.222.84
 
   deployTEST:
     name: Deploy to TEST
