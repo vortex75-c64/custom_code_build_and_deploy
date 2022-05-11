@@ -63,6 +63,7 @@ jobs:
 
   release:
     name: "Release"
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: marvinpinto/action-automatic-releases@v1.2.1
@@ -86,7 +87,6 @@ jobs:
       - name: deploy
         run: |
           echo "Deploy on DEV, file name is nso_eai_client_DEV_${GITHUB_RUN_NUMBER}.jar"
-          scp -P 8005 -pqr -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@87.20.222.84
 
   deployTEST:
     name: Deploy to TEST
