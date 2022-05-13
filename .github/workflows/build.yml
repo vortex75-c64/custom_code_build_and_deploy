@@ -62,18 +62,18 @@ jobs:
           curl -H "X-JFrog-Art-Api:${{secrets.ARTIFACT_TOKEN}}" -T deploy/nso_eai_client_${GITHUB_RUN_NUMBER}.jar "https://vortex75c64.jfrog.io/artifactory/binary-generic-local/deploy/nso_eai_client_${GITHUB_RUN_NUMBER}.jar"
 
   release:
-    name: "Release"
+    name: Create Release
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: ianlapham/release-and-build@v1
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "customcode"
-          prerelease: false
-          title: "Custom Code build #${GITHUB_RUN_NUMBER}"
-          files: "deploy/nso_eai_client_${GITHUB_RUN_NUMBER}.jar"
-
+          tag_name: ${{ github.run_number }}
+          release_name: ${{ github.run_number }}
+          
 
   # Deploy environments
   deployDEV:
