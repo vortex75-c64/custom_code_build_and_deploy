@@ -66,19 +66,13 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
-          tag_name: ${{ github.run_number }}
-          release_name: ${{ github.run_number }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: ${{ github.run_number }}
           prerelease: false
+          title: "Custom Code build #${{ github.run_number }}"
+          files: "deploy/nso_eai_client_${{ github.run_number }}.jar"
 
 
   # Deploy environments
