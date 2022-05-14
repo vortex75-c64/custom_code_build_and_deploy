@@ -66,13 +66,14 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: marvinpinto/action-automatic-releases@v1.2.1
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: ${{ github.run_number }}
-          prerelease: false
-          title: "Custom Code build #${{ github.run_number }}"
-          files: "deploy/nso_eai_client_${{ github.run_number }}.jar"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            deploy/nso_eai_client_${{ github.run_number }}.jar
 
 
   # Deploy environments
